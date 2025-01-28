@@ -11,5 +11,11 @@ class Automobilis(db.Model):
     spalva = db.Column(db.String)
     metai = db.Column(db.Integer)
 
+    @property
+    def average_year(self):
+        autos = self.query.all()
+        res = round(sum(auto.metai for auto in autos) / len(autos))
+        return res
+
     def __repr__(self):
         return f"id: {self.id} {self.gamintojas} {self.modelis} {self.spalva} {self.metai}"

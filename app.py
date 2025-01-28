@@ -16,10 +16,12 @@ def home():
     search_text = request.args.get("searchlaukelis")
     if search_text:
         filtered_rows = Automobilis.query.filter(Automobilis.modelis.ilike(f"{search_text}%"))
-        return render_template("index.html", autos=filtered_rows)
+        average_year = Automobilis().average_year
+        return render_template("index.html", autos=filtered_rows, average_year=average_year)
     else:
         all_autos = Automobilis.query.all()
-        return render_template("index.html", autos=all_autos)
+        average_year = Automobilis().average_year
+        return render_template("index.html", autos=all_autos, average_year=average_year)
 
 
 @app.route("/automobilis/<int:row_id>")
